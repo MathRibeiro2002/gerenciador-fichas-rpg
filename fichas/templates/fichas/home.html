@@ -1,0 +1,63 @@
+{% extends 'fichas/base.html' %}
+
+{% block conteudo %}
+<div class="row mt-5">
+    
+    <!-- Coluna de Introdução e Busca -->
+    <div class="col-md-12 mb-5 text-center">
+        <h1 style="color: #ff007f; text-shadow: 0 0 8px #ff007f; font-weight: 800;">
+            GERENCIE SUAS <span style="color: #ffea00;">ESTATÍSTICAS</span>
+        </h1>
+        <p class="lead mt-3" style="color: #a0a5b5;">O seu repositório definitivo para criar e armazenar builds e fichas de RPG.</p>
+        
+        <!-- BARRA DE BUSCA (Requisito de Filtro) -->
+        <form method="GET" action="{% url 'home' %}" class="d-flex justify-content-center mt-4 mb-5">
+            <input type="text" name="busca" value="{{ query|default_if_none:'' }}" placeholder="Buscar personagem ou classe..." class="form-control w-50" style="background-color: #0b132b; color: #fff; border: 1px solid #ff5e00; border-radius: 5px 0 0 5px;">
+            <button type="submit" class="btn" style="background-color: #ff5e00; color: #000; font-weight: bold; border-radius: 0 5px 5px 0; box-shadow: 0 0 10px #ff5e00;">
+                PESQUISAR
+            </button>
+        </form>
+    </div>
+
+</div>
+
+<!-- LISTAGEM DAS FICHAS DO BANCO DE DADOS -->
+<div class="row">
+    <h3 class="mb-4" style="color: #e0e1dd; border-bottom: 1px solid #ff007f; padding-bottom: 10px;">Fichas Públicas Recentes</h3>
+    
+    {% if fichas %}
+        {% for ficha in fichas %}
+            <!-- Cartão de cada Ficha -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100" style="background-color: #050a1f; border: 1px solid rgba(255, 0, 127, 0.5); box-shadow: 0 0 10px rgba(255, 0, 127, 0.2); border-radius: 12px; transition: 0.3s;" onmouseover="this.style.borderColor='#ffea00'; this.style.boxShadow='0 0 15px rgba(255, 234, 0, 0.4)';" onmouseout="this.style.borderColor='rgba(255, 0, 127, 0.5)'; this.style.boxShadow='0 0 10px rgba(255, 0, 127, 0.2)';">
+                    
+                    <div class="card-header text-center py-3" style="border-bottom: 1px solid rgba(255, 0, 127, 0.2);">
+                        <h4 class="mb-1" style="color: #e0e1dd; font-weight: bold;">{{ ficha.nome_personagem }}</h4>
+                        <span class="badge" style="background-color: rgba(255, 94, 0, 0.2); color: #ff5e00; border: 1px solid #ff5e00;">
+                            {{ ficha.template.nome }}
+                            {% if ficha.nome_jogo_customizado %} - {{ ficha.nome_jogo_customizado }}{% endif %}
+                        </span>
+                    </div>
+                    
+                    <div class="card-body text-center">
+                        <p style="color: #a0a5b5; font-size: 0.9em;">Criado por: <strong style="color: #ffea00;">{{ ficha.autor.username }}</strong></p>
+                        <p style="color: #a0a5b5; font-size: 0.8em;">Em: {{ ficha.data_criacao|date:"d/m/Y" }}</p>
+                    </div>
+                    
+                    <div class="card-footer text-center py-3" style="border-top: 1px solid rgba(255, 0, 127, 0.2);">
+                        <button class="btn btn-sm w-100" style="color: #ff007f; border: 1px solid #ff007f; transition: 0.3s;" onmouseover="this.style.backgroundColor='#ff007f'; this.style.color='#000';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ff007f';">Ver Detalhes</button>
+                    </div>
+                    
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <!-- Caso a pesquisa não encontre nada ou o banco esteja vazio -->
+        <div class="col-12 text-center mt-4">
+            <p style="color: #ff5e00; font-size: 1.2em; border: 1px dashed #ff5e00; padding: 20px; border-radius: 8px;">
+                Nenhuma ficha pública encontrada no sistema. Que tal ser o primeiro a forjar uma?
+            </p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

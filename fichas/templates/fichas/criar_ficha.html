@@ -1,0 +1,30 @@
+{% extends 'fichas/base.html' %}
+
+{% block conteudo %}
+<style>
+    /* Estilizando o formulário do Django para o tema Neon Amarelo */
+    .form-neon input, .form-neon select { background-color: #0b132b; color: #fff; border: 1px solid #ffea00; width: 100%; padding: 10px; border-radius: 5px; margin-bottom: 15px; }
+    .form-neon label { color: #e0e1dd; font-weight: bold; margin-bottom: 5px; display: block;}
+    .form-neon input[type="checkbox"] { width: auto; margin-right: 10px; transform: scale(1.5); }
+    .form-neon .helptext { color: #a0a5b5; font-size: 0.85em; display: block; margin-top: -10px; margin-bottom: 15px; }
+</style>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card p-4" style="background-color: #050a1f; border: 1px solid #ffea00; box-shadow: 0 0 15px rgba(255, 234, 0, 0.3); border-radius: 12px;">
+            <h2 class="text-center mb-4" style="color: #ffea00; text-shadow: 0 0 8px #ffea00;">FORJAR NOVA FICHA</h2>
+            
+            <form method="post" class="form-neon">
+                {% csrf_token %}
+                {{ form.as_p }}
+                
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="{% url 'home' %}" class="btn" style="color: #ff007f; border: 1px solid #ff007f;">Cancelar</a>
+                    <button type="submit" class="btn" style="background-color: #ffea00; color: #000; font-weight: bold; box-shadow: 0 0 10px #ffea00; padding: 10px 30px;">SALVAR FICHA</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

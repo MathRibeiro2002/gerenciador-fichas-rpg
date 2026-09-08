@@ -1,0 +1,20 @@
+{% extends 'fichas/base.html' %}
+{% block conteudo %}
+<style>
+    .form-neon input { background-color: #0b132b; color: #fff; border: 1px solid #ff007f; width: 100%; padding: 8px; border-radius: 5px; margin-bottom: 10px; }
+    .form-neon label { color: #e0e1dd; font-weight: bold; }
+    .form-neon ul, .form-neon .helptext { color: #ffffff; text-shadow: 0 0 5px #ffffff; font-size: 0.9em; margin-bottom: 15px; display: block; list-style-type: none; padding-left: 0; }
+</style>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5">
+        <div class="card p-4" style="background-color: #050a1f; border: 1px solid #ff007f; box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); border-radius: 12px;">
+            <h2 class="text-center mb-4" style="color: #ff007f; text-shadow: 0 0 8px #ff007f;">NOVO CADASTRO</h2>
+            <form method="post" class="form-neon">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn w-100 mt-3" style="background-color: #ff007f; color: #000; font-weight: bold; box-shadow: 0 0 10px #ff007f;">CRIAR CONTA</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
