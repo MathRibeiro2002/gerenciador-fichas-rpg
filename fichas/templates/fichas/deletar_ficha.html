@@ -1,0 +1,17 @@
+{% extends 'fichas/base.html' %}
+{% block conteudo %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5 text-center">
+        <div class="card p-4" style="background-color: #050a1f; border: 1px solid #ff003c; box-shadow: 0 0 20px rgba(255, 0, 60, 0.4); border-radius: 12px;">
+            <h2 style="color: #ff003c; text-shadow: 0 0 8px #ff003c;">CUIDADO!</h2>
+            <p class="mt-3 text-white">Tem certeza que deseja apagar a ficha de <strong>{{ ficha.nome_personagem }}</strong>? Esta ação não pode ser desfeita.</p>
+            
+            <form method="post" class="mt-4 d-flex justify-content-between">
+                {% csrf_token %}
+                <a href="{% url 'detalhes_ficha' ficha.id %}" class="btn" style="color: #a0a5b5; border: 1px solid #a0a5b5;">Cancelar</a>
+                <button type="submit" class="btn" style="background-color: #ff003c; color: #fff; font-weight: bold; box-shadow: 0 0 10px #ff003c;">SIM, APAGAR FICHA</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

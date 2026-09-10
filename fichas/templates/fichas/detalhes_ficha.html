@@ -1,0 +1,47 @@
+{% extends 'fichas/base.html' %}
+
+{% block conteudo %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card" style="background-color: #050a1f; border: 1px solid #ff007f; box-shadow: 0 0 20px rgba(255, 0, 127, 0.4); border-radius: 12px;">
+            
+            <div class="card-header text-center py-4" style="border-bottom: 1px solid rgba(255, 0, 127, 0.3);">
+                <h2 class="mb-2" style="color: #e0e1dd; font-weight: bold;">{{ ficha.nome_personagem }}</h2>
+                <span class="badge fs-6" style="background-color: rgba(255, 94, 0, 0.2); color: #ff5e00; border: 1px solid #ff5e00;">
+                    Sistema: {{ ficha.template.nome }}
+                    {% if ficha.nome_jogo_customizado %} - {{ ficha.nome_jogo_customizado }}{% endif %}
+                </span>
+            </div>
+            
+            <div class="card-body p-4" style="color: #a0a5b5;">
+                <h5 style="color: #ffea00; border-bottom: 1px solid rgba(255, 234, 0, 0.2); padding-bottom: 10px;">Informações do Registro</h5>
+                <p class="mt-3"><strong>Autor da Ficha:</strong> <span style="color: #e0e1dd;">{{ ficha.autor.username }}</span></p>
+                <p><strong>Data de Criação:</strong> <span style="color: #e0e1dd;">{{ ficha.data_criacao|date:"d/m/Y H:i" }}</span></p>
+                <p><strong>Visibilidade:</strong> 
+                    {% if ficha.is_publica %}
+                        <span style="color: #00ff00;">Pública</span>
+                    {% else %}
+                        <span style="color: #ff003c;">Privada</span>
+                    {% endif %}
+                </p>
+
+                <hr style="border-color: rgba(255, 0, 127, 0.3);">
+                <h5 style="color: #ffea00;">Conteúdo da Ficha</h5>
+                <p style="color: #e0e1dd; white-space: pre-line;">{{ ficha.historia_e_status|default:"Nenhuma informação registrada ainda." }}</p>
+            </div>
+            
+            <div class="card-footer text-center py-3 d-flex justify-content-between" style="border-top: 1px solid rgba(255, 0, 127, 0.3);">
+                <a href="{% url 'home' %}" class="btn" style="color: #a0a5b5; border: 1px solid #a0a5b5;">Voltar</a>
+                
+                {% if request.user == ficha.autor %}
+                <div>
+                    <a href="{% url 'editar_ficha' ficha.id %}" class="btn me-2" style="background-color: transparent; color: #ffea00; border: 1px solid #ffea00; box-shadow: 0 0 5px #ffea00;">Editar</a>
+                    <a href="{% url 'deletar_ficha' ficha.id %}" class="btn" style="background-color: transparent; color: #ff003c; border: 1px solid #ff003c; box-shadow: 0 0 5px #ff003c;">Excluir</a>
+                </div>
+                {% endif %}
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
